@@ -1,8 +1,8 @@
 name: Check for new courses
 on:
   schedule:
-    - cron: "*/30 * * * *"
-  workflow_dispatch: {}
+    - cron: "*/30 * * * *"   # every 30 minutes
+  workflow_dispatch: {}       # lets you run it manually from the Actions tab
 permissions:
   contents: write
 jobs:
@@ -17,6 +17,11 @@ jobs:
       - run: python check.py
         env:
           PAGE_URL: ${{ secrets.PAGE_URL }}
+          LOGIN_URL: ${{ secrets.LOGIN_URL }}
+          SITE_USER: ${{ secrets.SITE_USER }}
+          SITE_PASS: ${{ secrets.SITE_PASS }}
+          USER_FIELD: ${{ secrets.USER_FIELD }}
+          PASS_FIELD: ${{ secrets.PASS_FIELD }}
           SELECTOR: ${{ secrets.SELECTOR }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
       - name: Save state
